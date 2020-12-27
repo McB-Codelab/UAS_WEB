@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-        <h1>_</h1>
-        <hr>
+<div class="m-3">
         <h1>Daftar</h1>
         <hr>
         {!! Form::open(['action' => 'App\Http\Controllers\PostsController@store', 'method' => 'POST']) !!}
@@ -20,4 +19,5 @@
             </div>
             {{Form::submit('Kirim', ['class' => 'btn btn-dark'])}}
         {!! Form::close() !!}
+</div>
 @endsection

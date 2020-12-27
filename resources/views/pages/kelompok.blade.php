@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>_</h1>
-    <hr>
+<div class="m-3">
     <h1>{{$title}}</h1>
     <hr>
     <ul class="list-group">
@@ -12,4 +11,5 @@
             @endforeach
         @endif
     </ul>
+</div>
 @endsection

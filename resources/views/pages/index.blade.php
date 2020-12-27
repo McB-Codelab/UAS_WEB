@@ -1,16 +1,15 @@
 @extends('layouts.app')
 
-@section('content')
-    <h1>_</h1>
+@section('content') 
     <hr>
     <div class="jumbotron text-center">
         <h1>Daftar Buku Tamu Pernikahan</h1>
         <p>Untuk pasangan Raisa & Hamish.</p>
-        <p><a class="btn btn-primary btn-lg" href="/login" role="button">Login</a> <a class="btn btn-success btn-lg" href="/register" role="button">Register</a></p>
+        <p><a class="btn btn-light btn-lg" href="/posts" role="button">Lihat</a></p>
     </div>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="js/javascript.js"></script>
+    <script type="text/javascript" src="{{URL::asset('js/javascript.js')}}"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>_</h1>
-    <h1>_</h1>
+<div class="m-3">
     <h1> {{ $post->nama }}</h1>
     <div>
         <p>"{{ $post->pesan }}"</p>
@@ -11,4 +10,11 @@
         <hr>
     </div>
     <a href="/posts" class="btn btn-dark">Kembali</a>
+    <div class="text-right">
+    {!!Form::open(['action' => ['App\Http\Controllers\PostsController@destroy', $post->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
+        {{Form::hidden('_method', 'DELETE')}}
+        {{Form::submit('Delete', ['class' => 'btn btn-danger'])}}
+    {!!Form::close()!!}
+    </div>
+</div>
 @endsection

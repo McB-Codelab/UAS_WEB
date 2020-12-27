@@ -7,7 +7,7 @@
         {!! Form::open(['action' => 'App\Http\Controllers\PostsController@store', 'method' => 'POST']) !!}
             <div class="form-group">
                 {{Form::label('nama', 'Nama')}}
-                {{Form::text('nama', '',['class' => 'form-control', 'placeholder' => 'Nama'])}}
+                {{Form::text('nama', isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email,['class' => 'form-control-plaintext font-weight-bold  ', 'readonly' => 'true'])}}
             </div>
             <div class="form-group">
                 {{Form::label('no_hp', 'Nomor Hp')}}

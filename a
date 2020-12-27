@@ -1,0 +1,70 @@
+warning: LF will be replaced by CRLF in app/Providers/AuthServiceProvider.php.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in database/migrations/2014_10_12_000000_create_users_table.php.
+The file will have its original line endings in your working directory
+[1mdiff --git a/app/Providers/AuthServiceProvider.php b/app/Providers/AuthServiceProvider.php[m
+[1mindex bbcf12c..746fd1b 100644[m
+[1m--- a/app/Providers/AuthServiceProvider.php[m
+[1m+++ b/app/Providers/AuthServiceProvider.php[m
+[36m@@ -27,7 +27,11 @@[m [mclass AuthServiceProvider extends ServiceProvider[m
+         $this->registerPolicies();[m
+ [m
+         $gate -> define('isAdmin', function($user){[m
+[31m-            return $user -> email == 'admin123@gmail.com';[m
+[32m+[m[32m            return $user -> user_type == 'Admin';[m
+[32m+[m[32m        });[m
+[32m+[m
+[32m+[m[32m        $gate -> define('isUser', function($user){[m
+[32m+[m[32m            return $user -> user_type == 'User';[m
+         });[m
+     }[m
+ [m
+[1mdiff --git a/database/migrations/2014_10_12_000000_create_users_table.php b/database/migrations/2014_10_12_000000_create_users_table.php[m
+[1mindex 621a24e..aa4a9cb 100644[m
+[1m--- a/database/migrations/2014_10_12_000000_create_users_table.php[m
+[1m+++ b/database/migrations/2014_10_12_000000_create_users_table.php[m
+[36m@@ -15,10 +15,11 @@[m [mclass CreateUsersTable extends Migration[m
+     {[m
+         Schema::create('users', function (Blueprint $table) {[m
+             $table->id();[m
+[31m-            $table->string('name');[m
+[32m+[m[32m            $table->string('name')->nullable();[m
+             $table->string('email')->unique();[m
+             $table->timestamp('email_verified_at')->nullable();[m
+             $table->string('password');[m
+[32m+[m[32m            $table->string('user_type')->default('User');[m
+             $table->rememberToken();[m
+             $table->timestamps();[m
+         });[m
+[1mdiff --git a/resources/views/posts/create.blade.php b/resources/views/posts/create.blade.php[m
+[1mindex ff98c6c..d14a71c 100644[m
+[1m--- a/resources/views/posts/create.blade.php[m
+[1m+++ b/resources/views/posts/create.blade.php[m
+[36m@@ -7,7 +7,7 @@[m
+         {!! Form::open(['action' => 'App\Http\Controllers\PostsController@store', 'method' => 'POST']) !!}[m
+             <div class="form-group">[m
+                 {{Form::label('nama', 'Nama')}}[m
+[31m-                {{Form::text('nama', '',['class' => 'form-control', 'placeholder' => 'Nama'])}}[m
+[32m+[m[32m                {{Form::text('nama', isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email,['class' => 'form-control-plaintext font-weight-bold  ', 'readonly' => 'true'])}}[m
+             </div>[m
+             <div class="form-group">[m
+                 {{Form::label('no_hp', 'Nomor Hp')}}[m
+[1mdiff --git a/resources/views/posts/index.blade.php b/resources/views/posts/index.blade.php[m
+[1mindex c900648..0b46953 100644[m
+[1m--- a/resources/views/posts/index.blade.php[m
+[1m+++ b/resources/views/posts/index.blade.php[m
+[36m@@ -24,11 +24,10 @@[m
+         @else[m
+             <p>Belum ada tamu.</p>[m
+         @endif[m
+[31m-        @if (Auth::check())[m
+[31m-        @else[m
+[32m+[m[32m        @can ('isUser')[m
+             <div class="text-center">[m
+                 <a href="/posts/create" class="btn pull-right btn-dark mb-3">Tulis Pesan</a>[m
+             </div>[m
+[31m-        @endif[m
+[32m+[m[32m        @endcan[m
+ </div>[m
+ @endsection[m
+\ No newline at end of file[m

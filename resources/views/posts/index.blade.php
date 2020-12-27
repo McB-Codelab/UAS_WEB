@@ -24,11 +24,10 @@
         @else
             <p>Belum ada tamu.</p>
         @endif
-        @if (Auth::check())
-        @else
+        @can ('isUser')
             <div class="text-center">
                 <a href="/posts/create" class="btn pull-right btn-dark mb-3">Tulis Pesan</a>
             </div>
-        @endif
+        @endcan
 </div>
 @endsection

@@ -27,7 +27,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         $gate -> define('isAdmin', function($user){
-            return $user -> email == 'admin123@gmail.com';
+            return $user -> user_type == 'Admin';
+        });
+
+        $gate -> define('isUser', function($user){
+            return $user -> user_type == 'User';
         });
     }
 
